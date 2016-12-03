@@ -1,0 +1,90 @@
+PATH=$PATH:~/.npm/bin
+
+
+if [[ -e ~/.gimme/envs/go1.7.env ]]; then
+    source ~/.gimme/envs/go1.7.env 2>/dev/null
+fi
+
+# blacklist for bash completion
+FIGNORE=".o:~:CVS:.svn:.git:metadata.json"
+
+# give it some mem
+export JRUBY_OPTS="-J-Xmx24g -J-XX:MaxPermSize=1g"
+
+# chef helper
+alias chef="~/projects/chef/bin/chef"
+# project aliases
+alias pc="cd ~/projects/own/chef"
+
+# git aliases
+alias ga="git add -A"
+alias gap="git add -p"
+alias gb="git blame"
+alias gcm="git checkout master"
+alias gdm="git diff master"
+alias gd="git diff"
+alias gdc="git diff --cached"
+alias gl="git lg"
+alias gp="git pull --rebase"
+alias gpv="git push -f origin HEAD:vagrant/mike"
+alias grh="git reset HEAD"
+alias s="git status"
+alias gg="git grep -n"
+
+# ruby/rails shortcuts
+alias b="bundle"
+alias be="bundle exec"
+alias brs="bundle exec rails server"
+alias con="bundle exec rails console"
+
+# ember-cli shortcuts
+alias es="ember serve"
+alias et="ember test"
+alias ei="npm install && bower install"
+
+# chef helper
+alias kcu="knife cookbook upload"
+
+alias nutz="ssh mike@cafe.noova.de"
+
+# always use system ruby to start vim
+vim() {
+    rvm system exec vim "$@"
+}
+
+# host shortcuts
+remote_tmux() {
+    if [[ $# -eq 2 ]]; then
+        ssh -XY -D $2 -t $1 /bin/bash -li -c 'T'
+    else
+        ssh -XY -t $1 /bin/bash -li -c 'T'
+    fi
+}
+
+function T () {
+    tmux -S /tmp/tmux attach
+}
+
+
+function Z() {
+    remote_tmux mike.dev.zenops.net 9991
+}
+
+repm() {
+    repoman manifest
+}
+
+reps() {
+    repm
+    repoman scan
+}
+
+repf() {
+    repm
+    repoman full
+}
+
+# tmuxinator auto completion
+source ~/bin/tmuxinator-autocomplete.sh
+
+# vim: ft=sh

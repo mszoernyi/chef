@@ -1,4 +1,4 @@
-chef_server_url 'https://CHEF_SERVER_ADDRESS/organizations/ORG_NAME'
+chef_server_url 'https://chef.zenops.net/organizations/mike'
 
 chef_repo_path = File.expand_path("../..", __FILE__)
 user_file = File.join(chef_repo_path, ".user")
