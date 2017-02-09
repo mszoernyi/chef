@@ -1,12 +1,9 @@
-.PHONY: dep up vendor provision
+.PHONY: dep vendor upload provision
 
 all: provision
 
 dep:
 	berks install
-
-up:
-	berks update
 
 vendor: dep
 	berks vendor
