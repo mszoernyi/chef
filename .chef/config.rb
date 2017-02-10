@@ -10,7 +10,12 @@ else
 end
 
 client_key File.join(chef_repo_path, '.chef/client.pem')
+
+verbose_logging false
+
+cache_path File.join(chef_repo_path, '.chef')
 syntax_check_cache_path File.join(chef_repo_path, '.chef/syntax_check_cache')
+
 cookbook_path [
   File.join(chef_repo_path, 'berks-cookbooks'),
   File.join(chef_repo_path, 'cookbooks'),
@@ -18,4 +23,7 @@ cookbook_path [
 
 if ohai
   ohai.plugin_path << File.join(chef_repo_path, '.chef/ohai/plugins')
+  ohai.disabled_plugins = [
+    :Hostnamectl,
+  ]
 end
