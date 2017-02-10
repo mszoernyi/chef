@@ -1,6 +1,6 @@
 .PHONY: dep vendor upload provision
 
-all: provision
+all: upload
 
 dep:
 	berks install
