@@ -1,4 +1,5 @@
 .chef/*.pem
+.chef/backup/
 .chef/cache/
 .chef/encrypted_data_bag_secret
 .chef/local-mode-cache/

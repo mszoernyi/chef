@@ -13,4 +13,4 @@ upload: vendor
 	knife upload /
 
 provision: upload
-	@chef-client -c .chef/config.rb
+	@chef-client -c .chef/config.rb -l warn
