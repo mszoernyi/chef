@@ -22,4 +22,9 @@ cookbook_path [
   File.join(chef_repo_path, 'cookbooks'),
 ]
 
-ohai.plugin_path << File.join(chef_repo_path, '.chef/ohai/plugins')
+if ohai
+  ohai.plugin_path << File.join(chef_repo_path, '.chef/ohai/plugins')
+  ohai.disabled_plugins = [
+    :Hostnamectl,
+  ]
+end
