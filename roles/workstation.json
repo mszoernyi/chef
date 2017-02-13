@@ -1,0 +1,11 @@
+{
+  "name": "workstation",
+  "default_attributes": {
+  },
+  "run_list": [
+    "recipe[chef-client::config]",
+    "role[base]",
+    "recipe[cron]",
+    "recipe[logrotate]"
+  ]
+}

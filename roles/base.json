@@ -1,12 +1,23 @@
 {
   "name": "base",
   "default_attributes": {
+    "chef_client": {
+      "log_file": null
+    },
     "ohai": {
+      "plugin_path": "/etc/chef/ohai/plugins",
       "disabled_plugins": [
         ":Hostnamectl"
       ]
     }
   },
   "run_list": [
+    "recipe[bash]",
+    "recipe[git]",
+    "recipe[gnupg]",
+    "recipe[htop]",
+    "recipe[ssh]",
+    "recipe[tmux]",
+    "recipe[vim]"
   ]
 }
