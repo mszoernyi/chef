@@ -7,3 +7,4 @@
 .rake_test_cache
 .user
 berks-cookbooks/
+.chef/backup/
