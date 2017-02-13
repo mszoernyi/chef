@@ -1,0 +1,12 @@
+{
+  "name": "base",
+  "default_attributes": {
+    "ohai": {
+      "disabled_plugins": [
+        ":Hostnamectl"
+      ]
+    }
+  },
+  "run_list": [
+  ]
+}
