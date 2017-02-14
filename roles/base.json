@@ -14,6 +14,7 @@
   "run_list": [
     "recipe[ubuntu]",
     "recipe[apt]",
+    "recipe[hostmasters]",
     "recipe[chef-client::config]",
     "recipe[bash]",
     "recipe[cron]",
