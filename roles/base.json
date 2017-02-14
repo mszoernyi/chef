@@ -11,6 +11,16 @@
       ]
     }
   },
+  "override_attributes": {
+    "authorization": {
+      "sudo": {
+        "groups": [
+          "sudo"
+        ],
+        "passwordless": true
+      }
+    }
+  },
   "run_list": [
     "recipe[ubuntu]",
     "recipe[apt]",
