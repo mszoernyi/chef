@@ -1,15 +1,15 @@
 source 'https://supermarket.zenops.net'
 
 # role[base]
+cookbook 'apt'
 cookbook 'bash'
+cookbook 'chef-client'
+cookbook 'cron'
 cookbook 'git'
 cookbook 'gnupg'
 cookbook 'htop'
+cookbook 'logrotate'
 cookbook 'ssh'
 cookbook 'tmux'
+cookbook 'ubuntu'
 cookbook 'vim'
-
-# common system cookbooks
-cookbook 'chef-client'
-cookbook 'cron'
-cookbook 'logrotate'
