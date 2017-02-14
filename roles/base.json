@@ -26,6 +26,7 @@
     "recipe[apt]",
     "recipe[hostmasters]",
     "recipe[chef-client::config]",
+    "recipe[build-essential]",
     "recipe[bash]",
     "recipe[cron]",
     "recipe[git]",
