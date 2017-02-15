@@ -2,10 +2,12 @@
 
 all: upload
 
-/usr/bin/berks:
+BERKS=$(shell test -d /Applications && echo "/usr/local/bin/berks" || echo "/usr/bin/berks")
+
+$(BERKS):
 	curl https://omnitruck.chef.io/install.sh | sudo bash -s -- -c current -P chefdk
 
-dep: /usr/bin/berks
+dep: $(BERKS)
 	berks install
 
 vendor: dep
