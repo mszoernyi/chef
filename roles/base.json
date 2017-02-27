@@ -94,20 +94,16 @@
     }
   },
   "run_list": [
-    "recipe[ubuntu]",
-    "recipe[apt]",
-    "recipe[hostmasters]",
-    "recipe[chef-client::package]",
-    "recipe[chef-client::config]",
-    "recipe[build-essential]",
-    "recipe[packages]",
+    "recipe[base]",
     "recipe[bash]",
     "recipe[cron]",
     "recipe[git]",
     "recipe[gnupg]",
     "recipe[htop]",
+    "recipe[locale]",
     "recipe[logrotate]",
     "recipe[ssh]",
+    "recipe[sshd]",
     "recipe[tmux]",
     "recipe[vim]"
   ]
