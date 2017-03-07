@@ -2,11 +2,11 @@
   "name": "base",
   "default_attributes": {
     "chef_client": {
-      "version": "12.18.31",
+      "version": "12.19.36",
       "log_file": null
     },
     "chefdk": {
-      "version": "1.3.10"
+      "version": "1.3.17"
     },
     "ohai": {
       "plugin_path": "/etc/chef/ohai/plugins",
@@ -18,6 +18,7 @@
       "debian": [
         "acct",
         "acpitool",
+        "apport",
         "atool",
         "blktool",
         "bmon",
@@ -25,7 +26,9 @@
         "bwm-ng",
         "colordiff",
         "conntrack",
+        "debian-goodies",
         "diffstat",
+        "dmidecode",
         "dnsutils",
         "dos2unix",
         "dstat",
@@ -38,20 +41,26 @@
         "iotop",
         "ipcalc",
         "ipmitool",
+        "iproute2",
         "ipv6calc",
         "jq",
         "latencytop",
+        "less",
         "lft",
         "linux-tools-generic",
+        "lm-sensors",
         "lshw",
         "lsof",
         "ltrace",
         "lvm2",
+        "man-db",
         "mc",
         "mdadm",
         "mercurial",
         "mtr-tiny",
         "ncdu",
+        "needrestart",
+        "netcat-openbsd",
         "nethogs",
         "netstat-nat",
         "ngrep",
@@ -74,27 +83,96 @@
         "sysstat",
         "tcpdump",
         "tcptraceroute",
+        "telnet",
         "time",
         "tiptop",
         "traceroute",
         "tree",
+        "ubuntu-minimal",
+        "ubuntu-standard",
         "unzip",
-        "whois"
+        "update-notifier-common",
+        "wget",
+        "whois",
+        "xz-utils"
       ]
+    },
+    "resolver": {
+      "options": {
+        "timeout": 1,
+        "attempts": 5,
+        "rotate": null
+      },
+      "nameservers": [
+        "8.8.8.8",
+        "8.8.4.4"
+      ]
+    },
+    "sysctl": {
+      "params": {
+        "net.ipv4.conf.default.promote_secondaries": 1,
+        "net.ipv4.conf.all.promote_secondaries": 1,
+        "net.ipv4.conf.default.rp_filter": 1,
+        "net.ipv4.conf.all.rp_filter": 1,
+        "net.ipv4.conf.default.accept_source_route": 0,
+        "net.ipv4.conf.all.accept_source_route": 0,
+        "net.ipv4.conf.all.accept_redirects": 0,
+        "net.ipv4.conf.default.accept_redirects": 0,
+        "net.ipv4.conf.all.send_redirects": 0,
+        "net.ipv4.conf.default.send_redirects": 0,
+        "net.ipv4.icmp_echo_ignore_broadcasts": 1,
+        "net.core.somaxconn": 1024,
+        "net.core.netdev_max_backlog": 10000,
+        "net.ipv4.ip_local_port_range": "32768 65535",
+        "net.ipv4.tcp_fin_timeout": 5,
+        "net.ipv4.tcp_sack": 0,
+        "net.ipv4.tcp_syncookies": 1,
+        "net.ipv4.tcp_timestamps": 1,
+        "net.ipv4.tcp_tw_recycle": 0,
+        "net.ipv4.tcp_tw_reuse": 0,
+        "net.netfilter.nf_conntrack_max": 4194304,
+        "kernel.panic": 60,
+        "fs.nr_open": 1048576,
+        "fs.inotify.max_user_watches": 524288
+      }
     }
   },
   "override_attributes": {
     "authorization": {
       "sudo": {
-        "groups": [
-          "sudo"
-        ],
+        "include_sudoers_d": true,
+        "groups": ["sudo"],
         "passwordless": true
+      }
+    },
+    "postfix": {
+      "main": {
+        "mydestination": [],
+        "relayhost": "smtp.sendgrid.net",
+        "smtp_sasl_auth_enable": "yes"
+      },
+      "sasl": {
+        "smtp_sasl_user_name": "username",
+        "smtp_sasl_passwd": "password"
       }
     }
   },
   "run_list": [
-    "recipe[base]",
+    "recipe[chef-sugar]",
+    "recipe[system]",
+    "recipe[sysctl]",
+    "recipe[resolver]",
+    "recipe[baselayout]",
+    "recipe[hostmasters]",
+    "recipe[systemd::system]",
+    "recipe[systemd::journald]",
+    "recipe[systemd::timesyncd]",
+    "recipe[chef-client::package]",
+    "recipe[chef-client::config]",
+    "recipe[build-essential]",
+    "recipe[packages]",
+    "recipe[postfix]",
+    "recipe[postfix::sasl_auth]",
     "recipe[bash]",
     "recipe[cron]",
     "recipe[git]",
@@ -104,6 +182,7 @@
     "recipe[logrotate]",
     "recipe[ssh]",
     "recipe[sshd]",
+    "recipe[sysstat]",
     "recipe[tmux]",
     "recipe[vim]"
   ]
