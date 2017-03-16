@@ -1,0 +1,9 @@
+{
+  "name": "workstation",
+  "default_attributes": {
+  },
+  "run_list": [
+    "role[base]",
+    "recipe[chefdk]"
+  ]
+}

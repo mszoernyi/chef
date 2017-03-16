@@ -1,7 +1,10 @@
 .chef/*.pem
+.chef/backup/
+.chef/cache/
 .chef/encrypted_data_bag_secret
 .chef/local-mode-cache/
 .chef/ohai/plugins/
 .rake_test_cache
 .user
 berks-cookbooks/
+.chef/backup/

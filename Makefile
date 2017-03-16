@@ -1,12 +1,14 @@
-.PHONY: dep up vendor provision
+.PHONY: dep vendor upload provision
 
-all: provision
+all: upload
 
-dep:
+BERKS=$(shell test -d /Applications && echo "/usr/local/bin/berks" || echo "/usr/bin/berks")
+
+$(BERKS):
+	curl https://omnitruck.chef.io/install.sh | sudo bash -s -- -c current -P chefdk
+
+dep: $(BERKS)
 	berks install
-
-up:
-	berks update
 
 vendor: dep
 	berks vendor
@@ -16,4 +18,4 @@ upload: vendor
 	knife upload /
 
 provision: upload
-	@chef-client -c .chef/config.rb
+	@chef-client -c .chef/config.rb -l warn

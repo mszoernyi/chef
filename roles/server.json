@@ -1,0 +1,9 @@
+{
+  "name": "server",
+  "default_attributes": {
+  },
+  "run_list": [
+    "role[base]",
+    "recipe[chef-client::service]"
+  ]
+}
