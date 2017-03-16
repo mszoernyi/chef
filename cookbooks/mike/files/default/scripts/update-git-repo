@@ -1,0 +1,38 @@
+#!/bin/bash
+
+git checkout -q || exit 1
+git diff-index --quiet HEAD --
+clean=$?
+
+if [[ $clean -ne 0 ]]; then
+	echo "!!! working copy is dirty"
+	exit 0
+fi
+
+git checkout -q master || exit 1
+git pull --quiet --ff-only || exit 1
+git gc --aggressive --quiet || exit 1
+
+if [[ $DEPS -ne 1 ]]; then
+	exit 0
+fi
+
+if [[ -e glide.lock ]]; then
+	rm -rf vendor
+	make -s clean
+	glide -q install
+fi
+
+if [[ -e Gemfile ]]; then
+	bundle install --quiet
+fi
+
+if [[ -e package.json ]]; then
+	npm config set loglevel error
+	npm install >/dev/null
+	npm config set loglevel warn
+fi
+
+if [[ -e bower.json ]]; then
+	bower install --quiet
+fi

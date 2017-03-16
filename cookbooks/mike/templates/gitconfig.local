@@ -1,0 +1,7 @@
+[user]
+	signingkey = 0x7234F9C62A5D29BD
+[commit]
+	gpgsign = 1
+[alias]
+	ls = ls-tree -r HEAD
+	ref = rev-parse HEAD

@@ -1,0 +1,15 @@
+set -g status-left "#[fg=default]❐ [#[fg=green]#S#[fg=default]]"
+
+setw -g window-status-format '#I:#W#F'
+setw -g window-status-current-format '#I:#W#F'
+
+bind i setw synchronize-panes
+
+bind -n C-Up run-shell 'tmux-vim-select-pane -U'
+bind -n S-Up run-shell 'tmux-vim-select-pane -U'
+bind -n C-Down run-shell 'tmux-vim-select-pane -D'
+bind -n S-Down run-shell 'tmux-vim-select-pane -D'
+bind -n C-Left run-shell 'tmux-vim-select-pane -L'
+bind -n S-Left run-shell 'tmux-vim-select-pane -L'
+bind -n C-Right run-shell 'tmux-vim-select-pane -R'
+bind -n S-Right run-shell 'tmux-vim-select-pane -R'

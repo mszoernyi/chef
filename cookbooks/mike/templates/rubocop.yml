@@ -1,0 +1,12 @@
+Style/CommandLiteral:
+    Enabled: false
+Style/StringLiterals:
+    Enabled: false
+Style/SpecialGlobalVars:
+    Enabled: false
+Metrics/LineLength:
+    Enabled: false
+Style/TrailingCommaInLiteral:
+    EnforcedStyleForMultiline: comma
+Style/TrailingCommaInArguments:
+    EnforcedStyleForMultiline: comma

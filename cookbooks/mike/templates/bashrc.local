@@ -1,90 +1,70 @@
-PATH=$PATH:~/.npm/bin
-
-
-if [[ -e ~/.gimme/envs/go1.7.env ]]; then
-    source ~/.gimme/envs/go1.7.env 2>/dev/null
+# keychain
+if type -P keychain >/dev/null; then
+	eval $(keychain --quiet --eval --agents gpg,ssh id_rsa id_ed25519)
+	export GPG_TTY=$(tty)
 fi
+
+if [[ -e "${HOME}/.gimme/envs/latest.env" ]]; then
+	source ${HOME}/.gimme/envs/latest.env 2>/dev/null
+fi
+
+if [[ -e "${HOME}/.nvm/nvm.sh" ]]; then
+	source ${HOME}/.nvm/nvm.sh 2>/dev/null
+fi
+
+# add local folders to PATH
+export PATH="${HOME}/.npm/bin:${PATH}"
 
 # blacklist for bash completion
 FIGNORE=".o:~:CVS:.svn:.git:metadata.json"
 
-# give it some mem
-export JRUBY_OPTS="-J-Xmx24g -J-XX:MaxPermSize=1g"
-
-# chef helper
-alias chef="~/projects/chef/bin/chef"
 # project aliases
-alias pc="cd ~/projects/own/chef"
+alias pc="cd ~/projects/hollow/chef"
+alias prc="cd ~/projects/remerge/chef"
+alias pzc="cd ~/projects/zenops/chef"
+alias pzz="cd ~/projects/zentoo/zentoo"
 
 # git aliases
 alias ga="git add -A"
 alias gap="git add -p"
-alias gb="git blame"
 alias gcm="git checkout master"
+alias gcu="git checkout upstream"
 alias gdm="git diff master"
-alias gd="git diff"
-alias gdc="git diff --cached"
+alias gd="git diff -b"
+alias gdc="git diff -b --cached"
 alias gl="git lg"
-alias gp="git pull --rebase"
-alias gpv="git push -f origin HEAD:vagrant/mike"
+alias gp="git pull"
+alias gpr="git pull --rebase"
 alias grh="git reset HEAD"
-alias s="git status"
-alias gg="git grep -n"
+alias s="git status ."
 
 # ruby/rails shortcuts
-alias b="bundle"
 alias be="bundle exec"
-alias brs="bundle exec rails server"
+alias brs="bundle exec rails server -b 0.0.0.0"
 alias con="bundle exec rails console"
-
-# ember-cli shortcuts
-alias es="ember serve"
-alias et="ember test"
-alias ei="npm install && bower install"
 
 # chef helper
 alias kcu="knife cookbook upload"
 
-alias nutz="ssh mike@cafe.noova.de"
-
 # always use system ruby to start vim
 vim() {
-    rvm system exec vim "$@"
+	rvm system exec vim "$@"
 }
 
 # host shortcuts
 remote_tmux() {
-    if [[ $# -eq 2 ]]; then
-        ssh -XY -D $2 -t $1 /bin/bash -li -c 'T'
-    else
-        ssh -XY -t $1 /bin/bash -li -c 'T'
-    fi
+	if [[ $# -eq 2 ]]; then
+		ssh -D $2 -t $1 /bin/bash -li -c 'T'
+	else
+		ssh -t $1 /bin/bash -li -c 'T'
+	fi
 }
-
-function T () {
-    tmux -S /tmp/tmux attach
-}
-
 
 function Z() {
-    remote_tmux mike.dev.zenops.net 9991
+	remote_tmux xnull.de 9991
 }
 
-repm() {
-    repoman manifest
-}
-
-reps() {
-    repm
-    repoman scan
-}
-
-repf() {
-    repm
-    repoman full
-}
-
-# tmuxinator auto completion
-source ~/bin/tmuxinator-autocomplete.sh
+# vagrant colors break with colored output from chef
+export VAGRANT_NO_COLOR=1
 
 # vim: ft=sh

@@ -32,3 +32,5 @@ cookbook 'vim'
 
 # role[workstation]
 cookbook 'chefdk'
+
+cookbook 'homebrew', github: 'chef-cookbooks/homebrew'

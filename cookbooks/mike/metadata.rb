@@ -6,5 +6,4 @@ description 'My dotfiles'
 long_description 'My dotfiles'
 version '0.0.0'
 
-depends 'bash'
 depends 'vim'
