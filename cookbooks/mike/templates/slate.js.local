@@ -1,0 +1,77 @@
+var gridColumns = 12;
+
+var screens = [
+    [2560], [1440],
+    [1366], [768]
+];
+
+S.cfga({
+    "defaultToCurrentScreen": true,
+    "checkDefaultsOnLoad": true,
+    "orderScreensLeftToRight": true,
+    "layoutFocusOnActivate": true,
+});
+
+var fullscreen = S.op("move", {
+    "x" : "screenOriginX",
+    "y" : "screenOriginY",
+    "width" : "screenSizeX",
+    "height" : "screenSizeY"
+});
+
+function grid(startColLeft, width, startColTop, height) {
+    if (!startColTop) { startColTop = 0; }
+    if (!height) { height = gridColumns; }
+
+    return S.op("move", {
+        "x": "screenOriginX+(screenSizeX*"+ startColLeft +"/"+ gridColumns +")",
+        "y": "screenOriginY+(screenSizeY*"+ startColTop +"/"+ gridColumns +")",
+        "width": "screenSizeX*"+ width +"/"+ gridColumns,
+        "height": "screenSizeY*"+ height +"/"+ gridColumns,
+    });
+};
+
+function gridOp(col, width) {
+    return {
+        "operations": [grid(col, width)],
+    };
+};
+
+var defaultLayout = S.lay("defaultLayout", {
+    "Slack": gridOp(0,3),
+    "Dash": gridOp(9, 3),
+    "Google Chrome": gridOp(3,6),
+    "iTerm": gridOp(3,6),
+});
+
+var defaultLayout = function() {
+    S.op("layout", { "name": "defaultLayout" }).run();
+};
+
+S.bnda({
+    "esc:cmd": S.op("relaunch"),
+    "f1:cmd": defaultLayout,
+
+
+    "2:cmd,alt": grid(0,3,0,6),
+    "3:cmd,alt": grid(0,3,6,6),
+
+    "4:cmd,alt": grid(0,3),
+
+    "5:cmd,alt": fullscreen,
+    "6:cmd,alt": grid(3,6),
+    "7:cmd,alt": grid(3,9),
+
+    "8:cmd,alt": grid(9,3),
+
+    "9:cmd,alt": grid(9,3,0,6),
+    "0:cmd,alt": grid(9,3,6,6),
+
+    // mini window bottom left
+    "-:cmd,alt": grid(0,3,9,3),
+
+	// left half
+	"f2:cmd": grid(0, 6),
+	// right half
+	"f3:cmd": grid(6, 6),
+});
