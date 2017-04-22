@@ -61,7 +61,7 @@ remote_tmux() {
 }
 
 function Z() {
-	remote_tmux xnull.de 9991
+	remote_tmux mike.dev.zenops.net 9991
 }
 
 # vagrant colors break with colored output from chef
