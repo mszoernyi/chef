@@ -13,7 +13,7 @@ if [[ -e "${HOME}/.nvm/nvm.sh" ]]; then
 fi
 
 # add local folders to PATH
-export PATH="${HOME}/.npm/bin:${PATH}"
+export PATH="node_modules/.bin:${HOME}/.npm/bin:${PATH}"
 
 # blacklist for bash completion
 FIGNORE=".o:~:CVS:.svn:.git:metadata.json"
